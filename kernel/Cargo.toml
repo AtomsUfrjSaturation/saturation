@@ -1,0 +1,16 @@
+[package]
+name = "atoms_saturation_kernel"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+argmin = "0.8.1"
+argmin-math = "0.3.0"
+ndarray = "0.15.3"
+libc = "0.2.80"
+chrono = "0.4"
