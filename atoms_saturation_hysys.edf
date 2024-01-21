@@ -1,0 +1,183 @@
+~~_Atoms.Saturation_Variables
+
+VarEnumInfo Eos_Model_Enum
+   Entry 1 "CPA"
+   Entry 4 "PC-SAFT"
+   Entry 2 "SRK"
+   Entry 3 "PR"
+end
+
+VarEnumInfo Assoc_Model_Enum
+   Entry 11 "2B"
+   Entry 21 "3B"
+   Entry 22 "4C"
+end
+
+VarEnumInfo Cross_H2S_sol_Enum
+   Entry 2 "Associative"
+   Entry 1 "Non-Associative"
+end
+
+VarEnumInfo Cross_CO2_sol_Enum
+   Entry 2 "Associative"
+   Entry 1 "Non-Associative"
+end
+
+ExtensionVariables EV
+   AttachmentVar "FeedStream" "FeedStrm" "MaterialStreamObject" 0 Persistent AutoCompress Feed
+   AttachmentVar "ProductStream" "ProductStrm" "MaterialStreamObject" 0 Persistent AutoCompress Product
+   EnumVar "Eos_Model" "Eos_Model" 0 Persistent TriggerSolve Eos_Model_Enum
+   EnumVar "Assoc_Model" "Assoc_Model" 0 Persistent TriggerSolve Assoc_Model_Enum
+   RealVar "Water_Fraction" "Water_Fraction" "Index" 0 Persistent TriggerSolve
+   EnumVar "Cross_H2S_sol" "Cross_H2S_sol" 0 Persistent TriggerSolve Cross_H2S_sol_Enum
+   EnumVar "Cross_CO2_sol" "Cross_CO2_sol" 0 Persistent TriggerSolve Cross_CO2_sol_Enum
+   ExtensionType "UnitOperation"
+   ObjectDescription "ATOMS Saturation"
+   BaseVariables "flowobj"
+end
+
+~~_Atoms.Saturation_DefaultView
+
+SubViewMgr PageController
+   TargetMoniker ":PageNumber.0"
+   State "Connections" 0.000000 0.000000 ":"
+end
+
+StaticText NameLabel
+   Area 4 6 22 8
+   Label "&Name:"
+   SourceViewMgr PageController 1
+end
+
+TextEntry NameEntry
+   Area 30 4 75 12
+   TargetMoniker ":Name"
+   SourceViewMgr PageController 1
+end
+
+PageTabs PageTabs
+   Area 0 180 300 16
+   TargetMoniker ":PageNumber.0"
+   StretchWidth
+   FixToBottom
+   Tab 0.000000 "Connections"
+end
+
+Form Main
+   Title "%s"
+   Widget PageController
+   Widget NameLabel
+   Widget NameEntry
+   Widget Inlet
+   Widget Outlet
+   Widget InletLabel
+   Widget OutletLabel
+   Widget eos
+   Widget EqOfState
+   Widget AssociationModel
+   Widget AssocModel
+   Widget WatFrac
+   Widget NumericalInput1
+   Widget crossh2s
+   Widget crossco2
+   Widget crossH2Senum
+   Widget crossCO2enum
+   Widget PageTabs
+   Version 1
+   PageBottom PageTabs
+end
+
+AttachmentName Inlet
+   Area 26 44 75 13
+   TargetMoniker ":MaterialStreamObject.0.0(FeedStream)"
+   SourceViewMgr PageController 1
+   FlyByDescription "Enter Feed Stream Name"
+   BlankText ""
+end
+
+AttachmentName Outlet
+   Area 196 68 75 13
+   TargetMoniker ":MaterialStreamObject.0.0(ProductStream)"
+   SourceViewMgr PageController 1
+   FlyByDescription "Enter Product Stream Name"
+   BlankText ""
+end
+
+StaticText InletLabel
+   Area 26 36 39 8
+   Label "Fee&d Stream"
+   SourceViewMgr PageController 1
+end
+
+StaticText OutletLabel
+   Area 196 56 46 8
+   Label "&Product Stream"
+   SourceViewMgr PageController 1
+end
+
+StaticText eos
+   Area 26 64 51 8
+   Label "Equation of State"
+   SourceViewMgr PageController 1
+end
+
+Enumeration EqOfState
+   Area 26 72 60 12
+   TargetMoniker ":ExtraData.0.0(Eos_Model)"
+   SourceViewMgr PageController 1
+   DropDownLines 4
+end
+
+Enumeration AssociationModel
+   Area 26 100 60 13
+   TargetMoniker ":ExtraData.0.0(Assoc_Model)"
+   SourceViewMgr PageController 1
+   DropDownLines 3
+end
+
+StaticText AssocModel
+   Area 26 92 55 8
+   Label "Association Model"
+   SourceViewMgr PageController 1
+end
+
+StaticText WatFrac
+   Area 196 88 77 8
+   Label "Water Content (ppm/molar)"
+   SourceViewMgr PageController 1
+end
+
+NumericalInput NumericalInput1
+   Area 196 98 75 12
+   TargetMoniker ":ExtraData.0.0(Water_Fraction)"
+   SourceViewMgr PageController 1
+   Format "%5.3f"
+   ViewOnly True
+end
+
+StaticText crossh2s
+   Area 26 122 100 8
+   Label "Cross Assoc. H20-H2S by solvation"
+   SourceViewMgr PageController 1
+end
+
+StaticText crossco2
+   Area 26 154 101 8
+   Label "Cross Assoc. H2O-CO2 by solvation"
+   SourceViewMgr PageController 1
+end
+
+Enumeration crossH2Senum
+   Area 26 132 60 13
+   TargetMoniker ":ExtraData.0.0(Cross_H2S_sol)"
+   SourceViewMgr PageController 1
+   DropDownLines 2
+end
+
+Enumeration crossCO2enum
+   Area 26 162 60 12
+   TargetMoniker ":ExtraData.0.0(Cross_CO2_sol)"
+   SourceViewMgr PageController 1
+   DropDownLines 2
+end
+
