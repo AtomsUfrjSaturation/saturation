@@ -1,31 +1,25 @@
-### This project simplifies the process of creating a Hysys extension with custom logic. 
+### Simplifying the creation of Hysys extensions with custom logic 
 
-The repo's root contains C# code responsible for communicating with Hysys using Windows' COM 
-(you need the Aspen Developer Kit for the interop DLL `Interop.HYSYS.1.7.dll`). 
+This project focuses on streamlining the process of developing Hysys extensions that incorporate custom logic. 
 
-Inside `kernel` there is a PC-SAFT modelling logic written in Rust that 
-leverages FFI for exchanging the values (such as temperature, pressure etc) between the two 
-languages. 
+The repository's root directory contains C# code, which is responsible for interfacing with Hysys via Windows' COM. This setup facilitates communication between the Hysys software and our custom logic.
 
-#### Note 0: file mode changes
-When working with different OSs (Unix and Windows), there will be 
-file mode changes which makes it difficult to track actual code changes 
-between environments. To ignore these changes, run the following command 
-inside the root of the repository:
+Within the `kernel` directory, you'll find the PC-SAFT modelling logic, implemented in Rust. This component uses Foreign Function Interface (FFI) to facilitate data exchange (such as temperature, pressure, etc.) between C# and Rust.
+
+#### Note 0: Handling File Mode Changes
+Working across different operating systems (Unix and Windows) often leads to file mode changes. These changes can obscure actual code modifications when comparing environments. To mitigate this issue, execute the following command at the root of the repository to ignore such changes:
 ```
 git config core.fileMode false
 ``` 
 
-#### Note 1: receiving a stream's components list
-This data is defined at runtime, so it's available only
-when the user is interacting with the extension in Hysys.
-To access it: 
+#### Note 1: Accessing a Stream's Components List
+This data is dynamically defined at runtime and is only accessible when the user interacts with the extension in Hysys. To retrieve the list of components in a stream, use the following C# code snippet:
 
 ```csharp
 try {
     dynamic components = Feed.Flowsheet.FluidPackage.Components;
     string componentNames = string.Join(", ", components.Names);
-    // remaining code...
+    // Add additional code here as needed...
 } catch (Exception e) {
     Logger(e.ToString());
 }
