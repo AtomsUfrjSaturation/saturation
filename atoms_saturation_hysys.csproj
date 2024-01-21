@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.HYSYS.1.7">
-      <HintPath>..\Interop.HYSYS.1.7.dll</HintPath>
+      <HintPath>lib\Interop.HYSYS.1.7.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
