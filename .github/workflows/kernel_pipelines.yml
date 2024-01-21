@@ -1,4 +1,4 @@
-name: ATOMS Saturation Kernel workflow
+name: Kernel (Rust bridge) workflow
 
 on:
   push:
